@@ -1,0 +1,6 @@
+{
+  "KLEE_OPTIONS" : " --write-cov  --optimize --max-memory=32000 --use-forked-solver --libc=uclibc  --only-output-states-covering-new --max-time=3h --watchdog  ",
+  "CFMSE_IGNORE_JSON" : "cfmse_ignore.json",
+  "CFM_OPTIONS" : "-klee-cfmse  -klee-cfmse-run-only-on-loops=false -klee-cfmse-loads-symbolic"
+}
+

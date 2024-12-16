@@ -511,3 +511,42 @@ static int matchpattern(regex_t* pattern, const char* text, int* matchlength)
 }
 
 #endif
+// int main(int argc, char* argv[])
+// {
+//   /* test input - ten chars used as a regex-pattern input */
+//   char arr[25];
+
+//   /* make input symbolic, to search all paths through the code */
+//   /* i.e. the input is checked for all possible ten-char combinations */
+//   klee_make_symbolic(arr, sizeof(arr), "arr"); 
+
+//   /* assume proper NULL termination */
+//   klee_assume(arr[sizeof(arr) - 1] == 0);
+
+//   /* verify abscence of run-time errors - go! */
+//   re_compile(arr);
+
+//   return 0;
+// }
+int main(int argc, char* argv[])
+{
+  /* test input - a regex-pattern and a text string to search in */
+  // regular expression for email address
+  char pat[20] = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
+  char txt[10];
+
+  /* make input symbolic, to search all paths through the code */
+  /* i.e. the input is checked for all possible ten-char combinations */
+  klee_make_symbolic(pat, sizeof(pat), "pat"); 
+  klee_make_symbolic(txt, sizeof(txt), "txt"); 
+
+  /* assume proper NULL termination */
+  klee_assume(pat[sizeof(pat) - 1] == 0);
+  klee_assume(txt[sizeof(txt) - 1] == 0);
+
+  /* verify abscence of run-time errors - go! */
+  int l;
+  re_match(pat, txt, &l);
+
+  return 0;
+}
